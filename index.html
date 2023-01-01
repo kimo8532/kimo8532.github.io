@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/plugins/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css\index.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav id="mainNav" class="fixed-top">
+        <div class="container-lg">
+        <div class="row">
+            <div class="col-2 order-1">
+                <img id="logo" src="imgs\LOGOFINAL-removebg.png" alt="">
+            </div>
+            <div class="col-8 order-2 d-flex align-items-center justify-content-center">
+                <form class="d-flex align-items-center justify-content-center max-width">
+                    <input class="form-control max-width mr-sm-4" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-orange my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="col-2 order-3 d-flex align-items-center justify-content-center">
+                <button type="button" id="accountPill"class="badge badge-pill d-flex  justify-content-start" data-toggle="dropdown" aria-expanded="false">
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+                    <svg class="max-width"version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	                        viewBox="0 0 459 459" style="enable-background:new 0 0 459 459;" xml:space="preserve">
+                            <g>
+	                            <g>
+		                            <path d="M229.5,0C102.53,0,0,102.845,0,229.5C0,356.301,102.719,459,229.5,459C356.851,459,459,355.815,459,229.5
+			                        C459,102.547,356.079,0,229.5,0z M347.601,364.67C314.887,393.338,273.4,409,229.5,409c-43.892,0-85.372-15.657-118.083-44.314
+			                        c-4.425-3.876-6.425-9.834-5.245-15.597c11.3-55.195,46.457-98.725,91.209-113.047C174.028,222.218,158,193.817,158,161
+			                        c0-46.392,32.012-84,71.5-84c39.488,0,71.5,37.608,71.5,84c0,32.812-16.023,61.209-39.369,75.035
+			                        c44.751,14.319,79.909,57.848,91.213,113.038C354.023,354.828,352.019,360.798,347.601,364.67z"/>
+	                            </g>
+                            </g>
+                    </svg>
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" onclick="signOut()">Odlogiraj se</a>
+                </div>
+            </div>
+            </div>
+        </div>
+    </nav>
+    <div id="divBehindSticky">
+        <div class="container">
+
+        </div>
+    </div>
+    <div class="container">
+        <form class="form">
+            <div class="form-inline mx-auto d-flex justify-content-center">
+              <label for="start-year" class="mr-2">Start Year:</label>
+              <input type="number" class="form-control mr-3" id="start-year" name="start-year">
+              <label for="end-year" class="mr-2">End Year:</label>
+              <input type="number" class="form-control mr-3" id="end-year" name="end-year">
+              <label for="kW" class="mr-2">Najmanje kW:</label>
+              <input type="number" class="form-control mr-3" id="kW" name="Snaga">
+              <div class="form-inline mt-3">
+                <label for="Mjenjac" class="mr-2">Mjenjac:</label>
+                  <select class="form-control mr-3" id="Mjenjac">
+                      <option value="default" selected>---Odaberite mjenjac!---</option>
+                      <option value="Mehanicki mjenjac">Mehanicki mjenjac</option>
+                      <option value="Automatski">Automatski</option>
+                      <option value="Automatski sekvencijski">Automatski sekvencijski</option>
+                      <option value="Sekvencijski mjenjac">Sekvencijski mjenjac</option>
+                  </select>
+                  <label for="Motor" class="mr-3">Motor</label>
+                  <select class="form-control  mr-3" id="Motor">
+                    <option value="default" selected>---Odaberite motor!---</option>
+                    <option value="Benzin">Benzin</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="Hibrid">Hibrid</option>
+                    <option value="Plug-in hibrid">Plug-in hibrid</option>
+                    <option value="Elektricni">Elektricni</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-inline mx-auto d-flex justify-content-center mt-2">
+                <label class="mr-2"for="Make">Marka:</label>
+                <select class="form-control mr-3" id="Make">
+                    <option value="default" selected>---Odaberite marku!---</option>
+                </select>
+                <label class="mr-2" for="Model">Model:</label>
+                <select class="form-control mr-3" id="Model">
+                    <option value="default" selected>---Odaberite model!---</option>
+                </select>
+            </div>
+            <button type="button" class="btn btn-primary mx-auto mt-3 mb-5 d-flex justify-content-center" id="Filter">Filter</button>
+          </form>           
+    </div>
+    <div id="carHold" class="container" style="max-width:70%;">
+
+    </div>
+    <script src="assets\plugins\jquery\jquery-3.6.0.min.js"></script>
+    <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js\firebase_config.js"></script>
+    <script src="js\redirect.js"></script>
+    <script src="js\index.js"></script>>
+</body>
+</html>

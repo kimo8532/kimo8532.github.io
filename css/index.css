@@ -1,0 +1,32 @@
+#mainNav{
+    background-image:url('/imgs/BackgroundNav.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+#logo{
+    width: 10em;
+    height: auto;
+}
+#divBehindSticky{
+    width:10px;
+    margin-top: 110px;
+}
+.max-width{
+    width:100%;
+}
+#accountPill{
+    width: 40%;
+    height: auto;
+    background-color: #fe561d;
+}
+.btn-outline-orange{
+    border-color: #fe561d;
+    border-radius: 10px;
+    color:#fe561d;
+    font-weight: 500;
+}
+.btn-outline-orange:hover{
+    border-color: #fe561d;
+    color: black;
+    background-color:#fe561d;
+}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/plugins/bootstrap-4.6.1-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css\login.css">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+    <div class="container-sm">
+        <div class="row">
+            <div class="col-md-6 order-1 order-md-1 d-flex align-items-center justify-content-center">
+                <img src="imgs\LOGOFINAL.png" alt="" class="img-fluid">
+            </div>
+            <div class="col-md-6 order-2 order-md-2 d-flex align-items-center justify-content-center border">
+                <form id="loginForm" class="max-width" target="js\script.js">
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" id="password">
+                    </div>
+                    <!-- <div class="form-group">
+                      <a href="">Forgot password?</a>
+                    </div> -->
+                    <div class="row d-flex align-items-center justify-content-center pt-5">
+                        <div class="col d-flex align-items-center justify-content-center">
+                            <button type="button" class="btn btn-primary btn-lg" onclick="Login()">Login</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+    <script src="assets\plugins\jquery\jquery-3.6.0.min.js"$></script>
+    <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="js\firebase_config.js"></script>
+    <script src="js\login.js"></script>
+</body>
+</html>
