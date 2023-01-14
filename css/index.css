@@ -1,0 +1,55 @@
+#logo{
+    width: 10em;
+    height: auto;
+}
+#divBehindSticky{
+    width:10px;
+    margin-top: 110px;
+}
+.max-width{
+    width:100%;
+}
+#accountPill{
+    width: 40%;
+    height: auto;
+    background-color: #f56f46;
+}
+.btn-orange{
+    border-color: #f56f46;
+    border-radius: 50px;
+    background-color:#f56f46;
+    color:white;
+    font-weight: 600;
+    transition: all .3s ease-out .07s;
+    padding: 10px;
+}
+body{
+    background-color: #172153;
+}
+.form-control-redefined
+{
+    background-color: #f56f46;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+}
+.form-control-redefined:focus
+{
+    background-color: #f56f46;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+}
+.orange-background-text{
+    border-radius: 10px;
+    color:white;
+    font-weight: 600;
+}
+option{
+    background-color: #f56f46;
+    font-weight:600;
+}
+#car-card{
+    border-color: #f56f46;
+    border-width: 2px;
+}
