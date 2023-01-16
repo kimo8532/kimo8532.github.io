@@ -9,39 +9,77 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
-    <div class="container-sm">
-        <div class="row">
-            <div class="col-md-6 order-1 order-md-1 d-flex align-items-center justify-content-center">
-                <img src="imgs\LOGOFINAL.png" alt="" class="img-fluid">
+    <div class="container">
+    <div class="row">
+        <div id="first-col"class="col d-flex">
+            <div id="left-panel">
+                <img class="img-element"src="imgs\LOGOFINAL.png" alt="">
             </div>
-            <div class="col-md-6 order-2 order-md-2 d-flex align-items-center justify-content-center border">
-                <form id="loginForm" class="max-width" target="js\script.js">
+            <div id="registration-form-container" class="pl-3">
+            <h1 class="text text-center pb-3">Registriraj se!</h1>
+            <form id="registration-form">
+            <div class="form-group">
+                <input type="email" id="registerEmail" name="email" class="form-control form-control-redefined-orange" placeholder="Email adresa" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="registerPassword" name="password" class="form-control form-control-redefined-white" placeholder="Lozinka" required>
+            </div>
+            <div class="form-row form-group">
+                <div class="col"><input type="password" id="confirm-password" name="confirm-password" placeholder="Potvrdi lozinku" class="form-control form-control-redefined-orange" required></div>
+                <div class="col">
+                    <label for="profile-picture" class="custom-file-label form-control-redefined-white">Profilna slika</label>
+                    <input type="file" id="profile-picture" name="profile-picture" class="form-control-file" placeholder="Profilna slika" required></div>
+            </div>
+            <div class="form-row mt-2">
+                <div class="col">
+                    <input type="text" id="first-name" name="first-name" class="form-control form-control-redefined-orange" placeholder="Ime" placeholderrequired>
+                </div>
+                <div class="col">
+                    <input type="text" id="last-name" name="last-name" class="form-control form-control-redefined-white" placeholder="Prezime"required>
+                </div>
+            </div>
+            <div id="error-message" class="alert-danger mt-2"></div>
+            <div class="row d-flex align-items-center justify-content-center pt-3">
+                <div class="col d-flex align-items-center justify-content-center">
+                    <button type="button" class="btn btn-orange btn-lg" onclick="Register()">Registriraj se!</button>
+                    <button id="showToLogin" type="button" class="btn btn-white btn-lg ml-5">Imate profil?</button>
+                </div>
+            </div>
+            </form>
+            </div>
+        </div>
+        <div id="second-col"class="col d-flex justify-content-center">
+            <div id="right-panel">
+                <img src="imgs\LOGOFINAL.png" alt="">
+            </div>
+            <div id="login-form-container">
+                <h1 class="text text-center pb-3">Ulogiraj se!</h1>
+                <form id="loginForm" target="js\script.js">
                     <div class="form-group">
-                      <label for="email">Email address</label>
-                      <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                      <input type="email" class="form-control form-control-redefined-white" id="email" placeholder="Email adresa" aria-describedby="emailHelp">
                     </div>
                     <div class="form-group">
-                      <label for="password">Password</label>
-                      <input type="password" class="form-control" id="password">
+                      <input type="password" class="form-control form-control-redefined-orange" placeholder="Lozinka" id="password">
                     </div>
-                    <!-- <div class="form-group">
-                      <a href="">Forgot password?</a>
-                    </div> -->
-                    <div class="row d-flex align-items-center justify-content-center pt-5">
-                        <div class="col d-flex align-items-center justify-content-center">
-                            <button type="button" class="btn btn-primary btn-lg" onclick="Login()">Login</button>
+                     <div class="form-group">
+                      <a class="text" href="">Zaboravili ste lozinku?</a>
+                    </div>
+                    <div class="form-group pt-5 align-content-end">
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="btn btn-orange btn-lg" onclick="Login()">Logiraj se!</button>
+                            <button id="showToRegistration" type="button" class="btn btn-white btn-lg ml-5">Nemate profil?</button>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
     </div>
-</div>
+    </div>
     <script src="assets\plugins\jquery\jquery-3.6.0.min.js"$></script>
     <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
     <script src="js\firebase_config.js"></script>
     <script src="js\login.js"></script>
