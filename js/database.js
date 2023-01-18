@@ -98,36 +98,51 @@ function submitAddCar()
     let SnagaMotora = $("#validationServer08").val();
     let TipMotora = $("#Motor").val();
     let TipMjenjaca = $("#Mjenjac").val();
+    let Cijena = $("#Cijena").val();
 
+    let errorDiv = $("#error-div");
+    let error = $("#error-div");
 // Listen for changes to the file input element
 
     
-    if(Make == "default")
+    if(Marka == "default")
     {
-        alert("Unesite marku");
+        errorDiv.removeAttr("hidden");
+        error.html("ISPUNITE ISPRAVNO!") 
         return null;
     }
     if(Model == "default")
     {
-        alert("Unesite model");
+        errorDiv.removeAttr("hidden");
+        error.html("ISPUNITE ISPRAVNO!") 
         return null;
     }
     if(GodinaModela > Date('year') || GodinaProizvodnja > Date("year")){
-        alert("Unesite valjanu godinu");
+        errorDiv.removeAttr("hidden");
+        error.html("ISPUNITE ISPRAVNO!") 
         return null;
     }
     if(TipMotora == "default")
     {
-        alert("Unesite tip motor");
+        errorDiv.removeAttr("hidden");
+        error.html("ISPUNITE ISPRAVNO!") 
         return null;
     }
-    if($("#Mjenjac").val() == "default")
+    if(TipMjenjaca == "default")
     {
-        alert("Unesite tip mjenjaca");
+        errorDiv.removeAttr("hidden");
+        error.html("ISPUNITE ISPRAVNO!")
+        return null;
+    }
+    if(!Cijena || !SnagaMotora || !GodinaProizvodnja || !GodinaModela || !Registracija || !TrenutnaKilometraza || !IstekRegistracije)
+    {
+        errorDiv.removeAttr("hidden");
+        error.html("ISPUNITE ISPRAVNO!") 
         return null;
     }
     var sKey = baza.ref().child('allCarsInStock').push().key;
     const storageRef = storage.ref(`Cars/${sKey}/${$("#Make").val()}${$("#Model").val()}`);
+    errorDiv.attr("hidden", "true");
     storageRef.put(file).then(function(snapshot) {
     console.log('File uploaded successfully');
     });
