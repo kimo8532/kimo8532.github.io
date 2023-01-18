@@ -1,5 +1,17 @@
 auth.onAuthStateChanged((user) => {
     if (user) {
+        baza.ref("users").on('value', function(oOdgovorPosluzitelja)
+      {
+          oOdgovorPosluzitelja.forEach(function (oUserSnapshot)
+          {
+              var User = oUserSnapshot.val();
+              if(User.email == user.email)
+              {
+                let profilePictureHolder = document.getElementById("profile-picture");
+                profilePictureHolder.setAttribute("src", User.profilePicture);
+              }
+          })
+      })
         baza.ref("administrator").on('value', function(oOdgovorPosluzitelja)
         {
             var isAdmin = false;
