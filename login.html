@@ -62,7 +62,10 @@
                       <input type="password" class="form-control form-control-redefined-orange" placeholder="Lozinka" id="password">
                     </div>
                      <div class="form-group">
-                      <a class="text" href="">Zaboravili ste lozinku?</a>
+                      <!-- Button trigger modal -->
+                    <a type="button" class="text" data-toggle="modal" data-target="#exampleModal">Zaboravili ste lozinku?</a>
+                    <!-- Modal -->
+                    
                     </div>
                     <div class="form-group pt-5 align-content-end">
                         <div class="d-flex justify-content-center">
@@ -71,6 +74,26 @@
                         </div>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Zaboravili ste lozinku?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body modal-container-change">
+                    <label for="forgotPasswordMail" class="text">Email adresa:</label>
+                    <input type="email" class="form-control form-control-redefined-orange" id="forgotPasswordMail">
+                </div>
+                <div class="modal-footer modal-container-change">
+                    <button type="button" class="btn btn-orange" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-orange" data-dismiss="modal" onclick="ForgotPassword()">Posalji verifikacijski mail</button>
+                </div>
             </div>
         </div>
     </div>

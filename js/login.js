@@ -1,3 +1,15 @@
+function ForgotPassword()
+{
+  var email = document.getElementById("forgotPasswordMail").value;
+  firebase.auth().sendPasswordResetEmail(email)
+  .then(() => {
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    // ..
+  });
+}
 function Login()
 {
   var emailOne = document.getElementById('email').value;

@@ -6,6 +6,11 @@ body {
 	flex-direction: column;
     height: 100vh;
 }
+.modal-container-change{
+    background: #172153;
+	  justify-content: center;
+	  align-items: center;
+}
 .text{
     color: #f56f46;
 }
