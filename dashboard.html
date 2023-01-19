@@ -162,25 +162,24 @@
     <script src="js\database.js"></script>
     <div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
-        <div class="modal-content">
+        <div class="modal-content bg-blue modal-border">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <button type="button" class="close btn-white" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <h1 class="text-center">Promjena automobila!</h1>
+            <h1 class="text-center white-text">Promjena automobila!</h1>
             <form>
                 <div class="form-row">
                   <div class="col-md-6 mb-3">
-                    <label for="MakeModal">Marka</label>
+                    <label for="MakeModal" class="white-text">Marka</label>
                     <select class="form-control form-control-redefined" id="MakeModal">
                         <option value="default">---Odaberite marku!---</option>
                     </select>
                   </div>
                   <div class="col-md-6 mb-3">
-                    <label for="ModelModal">Model</label>
+                    <label for="ModelModal" class="white-text">Model</label>
                     <select class="form-control form-control-redefined" id="ModelModal">
                         <option value="default">---Odaberite model!---</option>
                     </select>
@@ -188,35 +187,35 @@
                 </div>
                 <div class="form-row">
                   <div class="col-md-6 mb-3">
-                    <label for="validationServer03Modal">Istek registracije</label>
+                    <label for="validationServer03Modal" class="white-text">Istek registracije</label>
                     <input type="month" class="form-control form-control-redefined" id="validationServer03Modal" required>
                   </div>
                   <div class="col-md-3 mb-3">
-                    <label for="validationServer04Modal">Trenutna kilometraza</label>
+                    <label for="validationServer04Modal" class="white-text">Trenutna kilometraza</label>
                     <input type="number" class="form-control form-control-redefined" id="validationServer04Modal" required>
                   </div>
                   <div class="col-md-3 mb-3">
-                    <label for="validationServer05Modal">Registracija</label>
+                    <label for="validationServer05Modal" class="white-text">Registracija</label>
                     <input type="text" class="form-control form-control-redefined" id="validationServer05Modal" required>
                   </div>
                 </div>
                 <div class="form-row">
                     <div class="col-md-6 mb-3">
-                      <label for="validationServer06Modal">Godina modela</label>
+                      <label for="validationServer06Modal" class="white-text">Godina modela</label>
                       <input type="year" class="form-control form-control-redefined" id="validationServer06Modal" required>
                     </div>
                     <div class="col-md-3 mb-3">
-                      <label for="validationServer07Modal">Godina proizvodnje</label>
+                      <label for="validationServer07Modal" class="white-text">Godina proizvodnje</label>
                       <input type="year" class="form-control form-control-redefined" id="validationServer07Modal" required>
                     </div>
                     <div class="col-md-3 mb-3">
-                      <label for="validationServer08Modal">Snaga motora (u KW)</label>
+                      <label for="validationServer08Modal" class="white-text">Snaga motora (u KW)</label>
                       <input type="text" class="form-control form-control-redefined" id="validationServer08Modal" required>
                     </div>
                   </div>
                   <div class="form-row">
                     <div class="col-md-6 mb-3">
-                      <label for="MotorModal">Motor</label>
+                      <label for="MotorModal" class="white-text">Motor</label>
                       <select class="form-control form-control-redefined" id="MotorModal">
                         <option value="default" selected>---Odaberite motor!---</option>
                         <option value="Benzin">Benzin</option>
@@ -227,7 +226,7 @@
                     </select>
                     </div>
                     <div class="col-md-6 mb-3">
-                      <label for="MjenjacModal">Mjenjac</label>
+                      <label for="MjenjacModal" class="white-text">Mjenjac</label>
                       <select class="form-control form-control-redefined" id="MjenjacModal">
                           <option value="default" selected>---Odaberite mjenjac!---</option>
                           <option value="Mehanicki mjenjac">Mehanicki mjenjac</option>
@@ -240,8 +239,8 @@
               </form>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="modalSaveChanges"type="button" class="btn btn-orange" data-dismiss="modal">Save changes</button>
+            <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
+            <button id="modalSaveChanges"type="button" class="btn btn-orange" data-dismiss="modal">Spremi promjene</button>
           </div>
         </div>
       </div>
@@ -251,21 +250,22 @@
     <br>
     <div class="modal fade" id="areyousureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-blue modal-border">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Brisanje automobila</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <h5 class="modal-title white-text" id="exampleModalLabel">Brisanje automobila</h5>
+            <button type="button" class="close btn-white" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <p class="text-center">
-
+            <p class="text-center white-text">
+              Jeste li sigurni da hocete obrisati ovaj auto?
+              Ova promjena se ne moze ponistiti!
             </p>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button id="deleteButton"type="button" class="btn btn-danger">Save changes</button>
+            <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
+            <button id="deleteButton"type="button" class="btn btn-orange">Siguran sam!</button>
           </div>
         </div>
       </div>

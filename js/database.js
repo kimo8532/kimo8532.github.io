@@ -216,7 +216,7 @@ function submitAddCar()
         ${message}
         </div>
        <a href="#" class="btn btn-orange mr-3" data-toggle="modal" data-target="#mainModal" onclick="fillUpdateDetails('${sCarKey}')">Azuriraj modal</a>
-       <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#areyousureModal" onclick="fillDeleteDetails('${sCarKey}')">Delete</a>
+       <a href="#" class="btn btn-orange" data-toggle="modal" data-target="#areyousureModal" onclick="fillDeleteDetails('${sCarKey}')">Delete</a>
        </div>
      </div>
     </div>
@@ -314,10 +314,8 @@ function DeleteCar(sCarKey){
 }
 function fillDeleteDetails(sCarKey){
     var oAutomobil = baza.ref('allCarsInStock/' + sCarKey);
-    var text = document.querySelector(".modal-body text-center");
     var deleteButton = document.getElementById("deleteButton");
-    text.html("Jeste li sigurni da zelite izbrisati" + ` ${oAutomobil.Marka.split(".").join(" ")} ${oAutomobil.Model}`);
-    deleteButton.attr("onclick", `DeleteCar(${sCarKey})`);
+    deleteButton.setAttribute("onclick", `DeleteCar('${sCarKey}')`);
 }
 
 function fillUpdateDetails(sCarKey){
