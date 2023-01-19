@@ -9,6 +9,7 @@
     <title>Document</title>
 </head>
 <body>
+  
     <nav id="mainNav" class="fixed-top">
         <div class="container-lg">
         <div class="row">
@@ -37,10 +38,10 @@
     <div class="container">
       <div class="row">
         <div class="col d-flex align-items-center justify-content-center">
-          <button class="btn btn-orange" onclick="hideContainer('carHold')">Dodaj automobil!</button>
+          <button class="btn btn-orange" onclick="hideContainer('Unos')">Dodaj automobil!</button>
         </div>
         <div class="col d-flex align-items-center justify-content-center">
-          <button class="btn btn-orange" onclick="hideContainer('Unos')">Azuriraj ili izbrisi automobil</button>
+          <button class="btn btn-orange" onclick="hideContainer('carHold')">Azuriraj ili izbrisi automobil</button>
         </div>
         <div class="col d-flex align-items-center justify-content-center">
           <button class="btn btn-orange" onclick="hideContainer('Rentano')">Trenutno rentano!</button>
@@ -65,8 +66,7 @@
     </div>
     <div id="Unos" class="container" hidden>
         <h1 class="text-center orange-background-text mt-5 mb-5">Unos novog automobila u bazu</h1>
-        <div id="error-div"class="alert alert-danger text-center" role="alert" hidden>
-        </div>
+        <div id="error-div"class="alert alert-danger text-center" role="alert" hidden></div>
         <form>
             <div class="form-row">
               <div class="col-md-6 mb-3">
@@ -146,8 +146,109 @@
             
           </form>
     </div>    
+</div>
+    <div id="carHold" class="container mt-5" style="max-width:70%;" hidden>
+      
+    </div>
+    
+    <script src="assets\plugins\jquery\jquery-3.6.0.min.js"></script>
+    <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="js\firebase_config.js"></script>
+    <script src="js\redirect.js"></script>
+    <script src="js\database.js"></script>
+    <div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h1 class="text-center">Promjena automobila!</h1>
+            <form>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="MakeModal">Marka</label>
+                    <select class="form-control form-control-redefined" id="MakeModal">
+                        <option value="default">---Odaberite marku!---</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="ModelModal">Model</label>
+                    <select class="form-control form-control-redefined" id="ModelModal">
+                        <option value="default">---Odaberite model!---</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="col-md-6 mb-3">
+                    <label for="validationServer03Modal">Istek registracije</label>
+                    <input type="month" class="form-control form-control-redefined" id="validationServer03Modal" required>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationServer04Modal">Trenutna kilometraza</label>
+                    <input type="number" class="form-control form-control-redefined" id="validationServer04Modal" required>
+                  </div>
+                  <div class="col-md-3 mb-3">
+                    <label for="validationServer05Modal">Registracija</label>
+                    <input type="text" class="form-control form-control-redefined" id="validationServer05Modal" required>
+                  </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="validationServer06Modal">Godina modela</label>
+                      <input type="year" class="form-control form-control-redefined" id="validationServer06Modal" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="validationServer07Modal">Godina proizvodnje</label>
+                      <input type="year" class="form-control form-control-redefined" id="validationServer07Modal" required>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                      <label for="validationServer08Modal">Snaga motora (u KW)</label>
+                      <input type="text" class="form-control form-control-redefined" id="validationServer08Modal" required>
+                    </div>
+                  </div>
+                  <div class="form-row">
+                    <div class="col-md-6 mb-3">
+                      <label for="MotorModal">Motor</label>
+                      <select class="form-control form-control-redefined" id="MotorModal">
+                        <option value="default" selected>---Odaberite motor!---</option>
+                        <option value="Benzin">Benzin</option>
+                        <option value="Diesel">Diesel</option>
+                        <option value="Hibrid">Hibrid</option>
+                        <option value="Plug-in hibrid">Plug-in hibrid</option>
+                        <option value="Elektricni">Elektricni</option>
+                    </select>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                      <label for="MjenjacModal">Mjenjac</label>
+                      <select class="form-control form-control-redefined" id="MjenjacModal">
+                          <option value="default" selected>---Odaberite mjenjac!---</option>
+                          <option value="Mehanicki mjenjac">Mehanicki mjenjac</option>
+                          <option value="Automatski">Automatski</option>
+                          <option value="Automatski sekvencijski">Automatski sekvencijski</option>
+                          <option value="Sekvencijski mjenjac">Sekvencijski mjenjac</option>
+                      </select>
+                    </div>
+                  </div>
+              </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button id="modalSaveChanges"type="button" class="btn btn-orange" data-dismiss="modal">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    
     <br>
-
     <div class="modal fade" id="areyousureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -170,103 +271,6 @@
       </div>
     </div>
 
-<div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <h1 class="text-center">Promjena automobila!</h1>
-        <form>
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label for="MakeModal">Marka</label>
-                <select class="form-control form-control-redefined" id="MakeModal">
-                    <option value="default">---Odaberite marku!---</option>
-                </select>
-              </div>
-              <div class="col-md-6 mb-3">
-                <label for="ModelModal">Model</label>
-                <select class="form-control form-control-redefined" id="ModelModal">
-                    <option value="default">---Odaberite model!---</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-row">
-              <div class="col-md-6 mb-3">
-                <label for="validationServer03Modal">Istek registracije</label>
-                <input type="month" class="form-control form-control-redefined" id="validationServer03Modal" required>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationServer04Modal">Trenutna kilometraza</label>
-                <input type="number" class="form-control form-control-redefined" id="validationServer04Modal" required>
-              </div>
-              <div class="col-md-3 mb-3">
-                <label for="validationServer05Modal">Registracija</label>
-                <input type="text" class="form-control form-control-redefined" id="validationServer05Modal" required>
-              </div>
-            </div>
-            <div class="form-row">
-                <div class="col-md-6 mb-3">
-                  <label for="validationServer06Modal">Godina modela</label>
-                  <input type="year" class="form-control form-control-redefined" id="validationServer06Modal" required>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <label for="validationServer07Modal">Godina proizvodnje</label>
-                  <input type="year" class="form-control form-control-redefined" id="validationServer07Modal" required>
-                </div>
-                <div class="col-md-3 mb-3">
-                  <label for="validationServer08Modal">Snaga motora (u KW)</label>
-                  <input type="text" class="form-control form-control-redefined" id="validationServer08Modal" required>
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="col-md-6 mb-3">
-                  <label for="MotorModal">Motor</label>
-                  <select class="form-control form-control-redefined" id="MotorModal">
-                    <option value="default" selected>---Odaberite motor!---</option>
-                    <option value="Benzin">Benzin</option>
-                    <option value="Diesel">Diesel</option>
-                    <option value="Hibrid">Hibrid</option>
-                    <option value="Plug-in hibrid">Plug-in hibrid</option>
-                    <option value="Elektricni">Elektricni</option>
-                </select>
-                </div>
-                <div class="col-md-6 mb-3">
-                  <label for="MjenjacModal">Mjenjac</label>
-                  <select class="form-control form-control-redefined" id="MjenjacModal">
-                      <option value="default" selected>---Odaberite mjenjac!---</option>
-                      <option value="Mehanicki mjenjac">Mehanicki mjenjac</option>
-                      <option value="Automatski">Automatski</option>
-                      <option value="Automatski sekvencijski">Automatski sekvencijski</option>
-                      <option value="Sekvencijski mjenjac">Sekvencijski mjenjac</option>
-                  </select>
-                </div>
-              </div>
-          </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button id="modalSaveChanges"type="button" class="btn btn-orange" data-dismiss="modal">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-    <div id="carHold" class="container" style="max-width:70%;" hidden>
-    </div>
 
-    <script src="assets\plugins\jquery\jquery-3.6.0.min.js"></script>
-    <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="js\firebase_config.js"></script>
-    <script src="js\redirect.js"></script>
-    <script src="js\database.js"></script>
 </body>
 </html>

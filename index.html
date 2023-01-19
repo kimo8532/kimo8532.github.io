@@ -92,15 +92,15 @@
                     <option value="default" selected>---Odaberite model!---</option>
                 </select>
             </div>
-            <button type="button" class="btn btn-primary mx-auto mt-3 mb-5 d-flex justify-content-center" id="Filter">Filter</button>
+            <button type="button" class="btn btn-orange mx-auto pl-4 pr-4 mt-3 mb-5 d-flex justify-content-center" id="Filter">Filter</button>
           </form>           
     </div>
     <div id="carHold" class="container" style="max-width:70%;">
 
     </div>
     <div class="modal fade" id="mainModal" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
+        <div class="modal-dialog modal-xl ">
+          <div class="modal-content bg-blue modal-border">
             <div class="modal-header">
               <h5 class="modal-title" id="ModalLabel"></h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -112,29 +112,29 @@
                 <img id="carPicture"class="card-img-top">
                   <table class="table">
                   <tr>
-                  <th class="thead-dark">Godina proizvodnje:</th>
-                  <td id="validationServer07Modal"></td>
+                  <th class="white-text">Godina proizvodnje:</th>
+                  <td id="validationServer07Modal" class="white-text"></td>
                   </tr>
                   <tr>
-                  <th class="thead-dark">Godina modela:</th>
-                  <td id="validationServer06Modal"></td>
+                  <th class="white-text">Godina modela:</th>
+                  <td id="validationServer06Modal"class="white-text"></td>
                   </tr>
                   <tr>
-                  <th class="thead-dark">Snaga Motora (u kW):</th>
-                  <td id="validationServer08Modal"></td>
+                  <th class="white-text">Snaga Motora (u kW):</th>
+                  <td id="validationServer08Modal"class="white-text"></td>
                   </tr>
                   <tr>
-                  <th class="thead-dark">Tip Motora:</th>
-                  <td id="MotorModal"></td>
+                  <th class="white-text">Tip Motora:</th>
+                  <td id="MotorModal"class="white-text"></td>
                   </tr>
                   <tr>
-                  <th class="thead-dark">Tip Mjenjaca:</th>
-                  <td id="MjenjacModal"></td>
+                  <th class="white-text">Tip Mjenjaca:</th>
+                  <td id="MjenjacModal"class="white-text"></td>
                   </tr>
                   </table>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
+              <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
               <a id="RentajModal"type="button" href="#" class="btn btn-orange" data-toggle="modal" data-target="#areyousureModal">Rentaj!</a>
             </div>
           </div>
@@ -142,25 +142,24 @@
       </div>
       <div class="modal fade" id="areyousureModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
+          <div class="modal-content bg-blue">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel"></h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <button type="button" class="close  btn-orange" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
-              <p class="text-center">
+              <p class="text-center white-text">
                 Jeste li sigurni da zelite rentati ovaj auto?
               </p>
-              <label for="datumRentanja">Datum pocetka rentanja</label>
+              <label for="datumRentanja" class="white-text">Datum pocetka rentanja</label>
               <input type="date" id="datumRentanja">
-              <label for="datumPrestankaRentanja">Datum prestanja rentanja</label>
+              <label for="datumPrestankaRentanja" class="white-text">Datum prestanja rentanja</label>
               <input type="date" id="datumPrestankaRentanja">
             </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Zatvori</button>
-              <button id="rentButton" type="button" class="btn btn-danger" data-dismiss="modal">Siguran sam!</button>
+            <div class="modal-footer text-center">
+              <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
+              <button id="rentButton" type="button" class="btn btn-orange" data-dismiss="modal">Siguran sam!</button>
             </div>
           </div>
         </div>

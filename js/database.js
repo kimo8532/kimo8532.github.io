@@ -102,8 +102,6 @@ function submitAddCar()
 
     let errorDiv = $("#error-div");
     let error = $("#error-div");
-// Listen for changes to the file input element
-
     
     if(Marka == "default")
     {
@@ -218,7 +216,7 @@ function submitAddCar()
         ${message}
         </div>
        <a href="#" class="btn btn-orange mr-3" data-toggle="modal" data-target="#mainModal" onclick="fillUpdateDetails('${sCarKey}')">Azuriraj modal</a>
-       <a href="#" class="btn btn-warning" data-toggle="modal" data-target="areyousureModal" onclick="fillDeleteDetails('${sCarKey}')">Delete</a>
+       <a href="#" class="btn btn-warning" data-toggle="modal" data-target="#areyousureModal" onclick="fillDeleteDetails('${sCarKey}')">Delete</a>
        </div>
      </div>
     </div>
