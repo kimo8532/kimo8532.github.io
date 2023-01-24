@@ -133,7 +133,12 @@ function submitAddCar()
         error.html("ISPUNITE ISPRAVNO!")
         return null;
     }
-    if(!Cijena || !SnagaMotora || !GodinaProizvodnja || !GodinaModela || !Registracija || !TrenutnaKilometraza || !IstekRegistracije)
+    if(!IstekRegistracije)
+    {
+        IstekRegistracije = new Date()
+        Registracija = "xxxxxxxx"
+    }
+    if(!Cijena || !SnagaMotora || !GodinaProizvodnja || !GodinaModela || !TrenutnaKilometraza)
     {
         errorDiv.removeAttr("hidden");
         error.html("ISPUNITE ISPRAVNO!") 
