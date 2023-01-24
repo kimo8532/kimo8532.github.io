@@ -135,7 +135,7 @@ function submitAddCar()
     }
     if(!IstekRegistracije)
     {
-        IstekRegistracije = new Date()
+        IstekRegistracije = "2000-01"
         Registracija = "xxxxxxxx"
     }
     if(!Cijena || !SnagaMotora || !GodinaProizvodnja || !GodinaModela || !TrenutnaKilometraza)
