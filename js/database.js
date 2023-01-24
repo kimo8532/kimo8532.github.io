@@ -162,7 +162,7 @@ function submitAddCar()
                 'SnagaMotora' : SnagaMotora,
                 'TipMotora' : TipMotora,
                 'TipMjenjaca' : TipMjenjaca,
-                'Cijena' : Cijena
+                'Cijena' : Cijena/558
             }
             var oZapis = {};
             oZapis[sKey] = oAuto;
