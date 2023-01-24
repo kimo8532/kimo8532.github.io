@@ -8,6 +8,8 @@ auth.onAuthStateChanged((user) => {
               if(User.email == user.email)
               {
                 let profilePictureHolder = document.getElementById("profile-picture");
+                let podaciKorisnik = document.getElementById("podaciKorisnik");
+                podaciKorisnik.innerHTML=`Dobrodosli ${User.firstName} ${User.lastName}`;
                 profilePictureHolder.setAttribute("src", User.profilePicture);
               }
           })
@@ -231,60 +233,94 @@ function PripremaRentaj(sCarKey)
 {
   let rentButton = document.getElementById("rentButton");
   rentButton.setAttribute("onclick", `Rentaj('${sCarKey}')`);
+  let rangeStartValue = document.getElementById("datumRentanja");
+  let rangeEndValue = document.getElementById("datumPrestankaRentanja");
+  var errorMessage = document.getElementById("error-message");
+  errorMessage.innerHTML = "";
+  let curr = new Date()
+  let currDate = new Date(curr.getUTCFullYear(), curr.getUTCMonth()+1, curr.getUTCDay()+1);
+  console.log(currDate)
+  let selectedDate = new Date(rangeStartValue.value);
+  rangeStartValue.addEventListener("input", function()
+  {
+      if(selectedDate <= currDate)
+      {
+        rangeStartValue.value="";
+        errorMessage.innerHTML ="nemogu vjerovat da radim ovaj uvjet za pacjente koji se ovog sjete"
+      }
+  })
+  selectedDate = new Date(rangeEndValue.value);
+  rangeEndValue.addEventListener("input", function()
+  {
+      if(selectedDate <= currDate)
+      {
+        rangeEndValue.value="";
+        errorMessage.innerHTML ="nemogu vjerovat da radim ovaj uvjet za pacjente koji se ovog sjete"
+      }
+  })
   baza.ref("rented/"+ sCarKey).on('value', function(oOdgovorPosluzitelja)
   {
     oOdgovorPosluzitelja.forEach(function(snapshot)
     {
         let disabledStart = new Date(snapshot.val().datumRentanja);
         let disabledEnd = new Date(snapshot.val().datumPrestankaRentanja);
-        let rangeStartValue = document.getElementById("datumRentanja");
-        let rangeEndValue = document.getElementById("datumPrestankaRentanja");
+
         rangeStartValue.addEventListener("input", function(){
-        let selectedDate = new Date(rangeStartValue.value);
+        selectedDate = new Date(rangeStartValue.value);
         if(selectedDate >= disabledStart && selectedDate <= disabledEnd)
           {
             rangeStartValue.value="";
-            rangeStartValue.classList.add("disabled");
-            alert(`Auto je rentan ${disabledStart.getUTCDay()+1}/${disabledStart.getUTCMonth()+1}/${disabledStart.getUTCFullYear()}
-             - ${disabledEnd.getUTCDay()+1}/${disabledEnd.getUTCMonth()+1}/${disabledEnd.getUTCFullYear()}`)
+            errorMessage.innerHTML =`Auto je rentan ${disabledStart.getUTCDay()+1}/${disabledStart.getUTCMonth()+1}/${disabledStart.getUTCFullYear()}
+             - ${disabledEnd.getUTCDay()+1}/${disabledEnd.getUTCMonth()+1}/${disabledEnd.getUTCFullYear()}`;
           } 
-          else {
-            rangeStartValue.classList.remove("disabled");
-          }
         });
           
       rangeEndValue.addEventListener("input", function(){
-        let selectedDate = new Date(rangeEndValue.value);
+        selectedDate = new Date(rangeEndValue.value);
         if(selectedDate >= disabledStart && selectedDate <= disabledEnd) 
           {
             rangeEndValue.value="";
-            rangeEndValue.classList.add("disabled");
-            alert(`Auto je rentan ${disabledStart.getUTCDay()+1}/${disabledStart.getUTCMonth()+1}/${disabledStart.getUTCFullYear()}
-             - ${disabledEnd.getUTCDay()+1}/${disabledEnd.getUTCMonth()+1}/${disabledEnd.getUTCFullYear()}`)
+
+            errorMessage.innerHTML = `Auto je rentan ${disabledStart.getUTCDay()+1}/${disabledStart.getUTCMonth()+1}/${disabledStart.getUTCFullYear()}
+             - ${disabledEnd.getUTCDay()+1}/${disabledEnd.getUTCMonth()+1}/${disabledEnd.getUTCFullYear()}`;
           } 
-        else 
-        {
-          rangeEndValue.classList.remove("disabled");
-        }
         }
         );
     })
   })
 };
+// Landscape export, 2×4 inches
+const doc = new jsPDF({
+  orientation: "landscape",
+  unit: "in",
+  format: [4, 2]
+});
 
+doc.text("Hello world!", 1, 1);
+doc.save("two-by-four.pdf");
 function Rentaj(sCarKey)
 {
   if(document.getElementById("datumRentanja").value != "" && document.getElementById("datumPrestankaRentanja").value != "")
   {
   let noviRent = baza.ref().child("rented").child(sCarKey).push().key;
   let rentano = baza.ref("rented/" + sCarKey +"/");
-  var oRentaniAuto = {
-    'datumRentanja' : document.getElementById("datumRentanja").value,
-    'datumPrestankaRentanja' : document.getElementById("datumPrestankaRentanja").value
-  }
-var oZapis = {};
-oZapis[noviRent] = oRentaniAuto;
-rentano.update(oZapis);
+  var errorMessage = document.getElementById("error-message");
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      var oRentaniAuto = {
+        'datumRentanja' : document.getElementById("datumRentanja").value,
+        'datumPrestankaRentanja' : document.getElementById("datumPrestankaRentanja").value,
+        'email' : user.email,
+        'rentaniAuto' : sCarKey
+      }
+    var oZapis = {};
+    oZapis[noviRent] = oRentaniAuto;
+    rentano.update(oZapis);
+    errorMessage.innerHTML = "Uspjesno ste rentali automobil!"
+    }
+  });
+  
+
 }
 }
 function IsRented(sCarKey)
@@ -443,3 +479,48 @@ uploadTask.getDownloadURL().then((url) => {
   $("body").append(`<script src="${url}"></script>`)
 })
 })})});
+
+function generatePDF() {
+  const element = document.getElementById('invoice');
+  var opt = {
+      margin:       1,
+      filename:     'html2pdf_example.pdf',
+      image:        { type: 'jpeg', quality: 0.98 },
+      html2canvas:  { scale: 2 },
+      jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    // Choose the element that our invoice is rendered in.
+    html2pdf().set(opt).from(element).save();
+  }
+/*<div class="modal fade" id="invoice">
+        <div>
+          <h3 class="text-center">VOZNI PARK RACUN</h3>
+          <hr>
+          <p>Datum placanja: <span id="date-insert"></span></p>
+          <p>Vrijeme: <span id="time-insert"></span></p>
+          <p>Identifikator racuna: <span id="id-insert"></span></p>
+          <br>
+          <p>Iznajmljivac: <span id="customer-insert"></span></p>
+          <br>
+          <p><strong>PODACI O AUTOMOBILU:</strong></p>
+          <p>- Marka: <span id="marka-insert"></span></p>
+          <p>- Model: <span id="model-insert"></span></p>
+          <p>- Tablice: <span id="tablice-insert"></span></p>
+          <br>
+          <p>Period rentanja: <span id="startDate-insert"></span> do <span id="endDate-insert"></span></p>
+          <br>
+          <p><strong>UKUPAN IZNOS:</strong></p>
+          <p>- Bazna cijena rentanja: <span id="baznaCijena-insert"></span></p>
+          <p>- Insurance fee: <span id="osiguranje-insert"></span></p>
+          <p>- Porez (nema ga): <span>0,00 €</span></p>
+          <p>- Ukupno: <span id="ukupno-insert"></span></p>
+          <br>
+          <p><strong>NACIN PLACANJA:</strong></p>
+          <p>- Nacin:: <span id="nacinPlacanja-insert"></span></p>
+          <p>- <span id="karticaPlacanjeDetalji-insert"></span></p>
+        </div>
+      </div>*/
+function fillInvoiceDetail(sCarKey)
+{
+
+}

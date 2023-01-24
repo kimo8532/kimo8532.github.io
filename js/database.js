@@ -1,3 +1,4 @@
+
 auth.onAuthStateChanged((user) => {
     if (user) {
         baza.ref("users").on('value', function(oOdgovorPosluzitelja)
@@ -156,6 +157,7 @@ function submitAddCar()
                 'SnagaMotora' : SnagaMotora,
                 'TipMotora' : TipMotora,
                 'TipMjenjaca' : TipMjenjaca,
+                'Cijena' : Cijena
             }
             var oZapis = {};
             oZapis[sKey] = oAuto;
@@ -171,6 +173,7 @@ function submitAddCar()
             TipMotora = "";
             TipMjenjaca = "";
             Slike = "";
+            Cijena = "";
     };
     oDballCarsInStock.on('value', function (oOdgovorPosluzitelja)
     {

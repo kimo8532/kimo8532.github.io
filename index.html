@@ -21,9 +21,10 @@
                 <button type="button" id="profile-picture-container"class="" data-toggle="dropdown" aria-expanded="false">
                     <img src="" alt=">(" id="profile-picture" >
                 </button>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#history">Povijest rentanja!</a>
-                    <a class="dropdown-item" href="#" onclick="signOut()">Odlogiraj se</a>
+                <div class="dropdown-menu bg-blue modal-border">
+                    <p id="podaciKorisnik" class="white-text"></p>
+                    <a class="dropdown-item white-text" href="#" data-toggle="modal" data-target="#history">Povijest rentanja!</a>
+                    <a class="dropdown-item white-text" href="#" onclick="signOut()">Odlogiraj se</a>
                 </div>
             </div>
             </div>
@@ -31,9 +32,9 @@
     </nav>
     <div class="modal fade" id="history" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content">
+        <div class="modal-content bg-blue modal-border">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Vasa povijest rentanja</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -156,15 +157,45 @@
               <input type="date" id="datumRentanja">
               <label for="datumPrestankaRentanja" class="white-text">Datum prestanja rentanja</label>
               <input type="date" id="datumPrestankaRentanja">
+              <div id="error-message" class="alert-danger mt-2"></div>
             </div>
             <div class="modal-footer text-center">
               <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
-              <button id="rentButton" type="button" class="btn btn-orange" data-dismiss="modal">Siguran sam!</button>
+              <button id="rentButton" type="button" class="btn btn-orange">Siguran sam!</button>
             </div>
           </div>
         </div>
       </div>
+      <div class="modal fade" id="invoice">
+        <div>
+          <h3 class="text-center">VOZNI PARK RACUN</h3>
+          <hr>
+          <p>Datum placanja: <span id="date-insert"></span></p>
+          <p>Vrijeme: <span id="time-insert"></span></p>
+          <p>Identifikator racuna: <span id="id-insert"></span></p>
+          <br>
+          <p>Iznajmljivac: <span id="customer-insert"></span></p>
+          <br>
+          <p><strong>PODACI O AUTOMOBILU:</strong></p>
+          <p>- Marka: <span id="marka-insert"></span></p>
+          <p>- Model: <span id="model-insert"></span></p>
+          <p>- Tablice: <span id="tablice-insert"></span></p>
+          <br>
+          <p>Period rentanja: <span id="startDate-insert"></span> do <span id="endDate-insert"></span></p>
+          <br>
+          <p><strong>UKUPAN IZNOS:</strong></p>
+          <p>- Bazna cijena rentanja: <span id="baznaCijena-insert"></span></p>
+          <p>- Insurance fee: <span id="osiguranje-insert"></span></p>
+          <p>- Porez (nema ga): <span>0,00 €</span></p>
+          <p>- Ukupno: <span id="ukupno-insert"></span></p>
+          <br>
+          <p><strong>NACIN PLACANJA:</strong></p>
+          <p>- Nacin:: <span id="nacinPlacanja-insert"></span></p>
+          <p>- <span id="karticaPlacanjeDetalji-insert"></span></p>
+        </div>
+      </div>
     <script src="assets\plugins\jquery\jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>

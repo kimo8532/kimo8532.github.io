@@ -14,7 +14,12 @@ function Login()
 {
   var emailOne = document.getElementById('email').value;
   var passwordOne = document.getElementById('password').value;
-  
+  auth.setPersistence(firebase.auth.Auth.Persistence.SESSION)
+  .then(() => {
+    return firebase.auth().signInWithEmailAndPassword(emailOne, passwordOne);
+  })
+  .catch((error) => {
+  });
   auth.signInWithEmailAndPassword(emailOne, passwordOne)
   .then((user) => {
 
