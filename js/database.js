@@ -39,6 +39,25 @@ auth.onAuthStateChanged((user) => {
     }).catch((error) => {
     });
   }
+  baza.ref("rented").on('value', function(oOdgovorPosluzitelja)
+                {
+                  let counter = 1;
+                  oOdgovorPosluzitelja.forEach(function (oRentSnapshot)
+                  {
+                      Object.values(oRentSnapshot.val()).forEach(function(val){
+                      if(val.email == user.email)
+                      {
+                        console.log("doso tu")
+                        rentHistory.innerHTML += `<tr><th scope="row" class="white-text">${counter}</th><td class="white-text">${val.datumRentanja}
+                        </td><td class="white-text">${val.datumPrestankaRentanja}
+                        </td><td class="white-text">${val.rentaniAutoIme}
+                        </td><td class="white-text" id="racunGumb"><button type="button" class="btn btn-success" onclick="fillCreateInvoiceDetail('${val.rentaniAuto}')">Placanje</button>
+                        </td></tr>`
+                        counter++;
+                      }
+                    })
+                  })
+                })
   function RedirectIndex(){
     window.open('../index.html', '_self')
   }
@@ -215,7 +234,7 @@ function submitAddCar()
         status = "danger";
     }
      rdb += 1;
-     $("#carHold .row:last").append(`<div class="col-4"><div id="car-card" class="card">
+     $("#carHold .row:last").append(`<div class="col-lg-4"><div id="car-card" class="card">
      <img id="${sCarKey}"class="card-img-top" style="height:300px; width: 100%;">
      <div class="card-body">
        <h5 class="card-title text-center">${oCar.Marka.split(".").join(" ")} ${oCar.Model}</h5>
@@ -232,15 +251,7 @@ function submitAddCar()
     var uploadTask = storage.ref().child(`Cars/${sCarKey}/${oCar.Marka.split(" ").join(".")}${oCar.Model}`);
     
     uploadTask.getDownloadURL().then((url) => {
-      var xhr = new XMLHttpRequest();
-        xhr.responseType = 'blob';
-        xhr.onload = (event) => {
-          var blob = xhr.response;
-        };
-        xhr.open('GET', url);
-        xhr.send();
       $(`#${sCarKey}`).attr("src", `${url}`)    
-      $("body").append(`<script src="${url}"></script>`)
     })
     });
     });
@@ -256,6 +267,21 @@ function submitAddCar()
           }
         }
       }
+      let mybutton = document.getElementById("myBtn");
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
 function DodajAdministratora()
 {
     var sKey = baza.ref().child('administrator').push().key;
@@ -428,6 +454,7 @@ function monthDiff(d1, d2) {
     months += d2.getMonth();
     return months == 0 ? 0 : months;
 }
+fillCreateInvoiceDetail('${val.rentaniAuto}')
 /*<h5 class="card-title">${oCar.Marka} ${oCar.Model}</h5>
        <table class="table">
        <tr>

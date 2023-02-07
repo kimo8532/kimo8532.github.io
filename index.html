@@ -31,18 +31,30 @@
         </div>
     </nav>
     <div class="modal fade" id="history" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-xl">
         <div class="modal-content bg-blue modal-border">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Vasa povijest rentanja</h5>
+            <h5 class="modal-title white-text" id="exampleModalLabel">Vasa povijest rentanja</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            ...
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class="white-text"scope="col">#</th>
+                  <th class="white-text"scope="col">Datum rentanja</th>
+                  <th class="white-text"scope="col">Datum prestanka rentanja</th>
+                  <th class="white-text"scope="col">Rentani auto</th>
+                  <th class="white-text"scope="col">Racuni</th>
+                </tr>
+              </thead>
+              <tbody id="rentHistory">
+              </tbody>
+            </table>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer d-flex justify-content-around">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary">Save changes</button>
           </div>
@@ -103,7 +115,7 @@
         <div class="modal-dialog modal-xl ">
           <div class="modal-content bg-blue modal-border">
             <div class="modal-header">
-              <h5 class="modal-title" id="ModalLabel"></h5>
+              <h5 class="modal-title white-text" id="ModalLabel"></h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
@@ -132,11 +144,15 @@
                   <th class="white-text">Tip Mjenjaca:</th>
                   <td id="MjenjacModal"class="white-text"></td>
                   </tr>
+                  <tr>
+                    <th class="white-text">Cijena na dan:</th>
+                    <td id="CijenaModal"class="white-text"></td>
+                    </tr>
                   </table>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer d-flex justify-content-around">
               <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
-              <a id="RentajModal"type="button" href="#" class="btn btn-orange" data-toggle="modal" data-target="#areyousureModal">Rentaj!</a>
+              <button id="RentajModal"type="button" href="#" class="btn btn-orange" data-toggle="modal" data-target="#areyousureModal">Rentaj!</button>
             </div>
           </div>
         </div>
@@ -159,7 +175,7 @@
               <input type="date" id="datumPrestankaRentanja">
               <div id="error-message" class="alert-danger mt-2"></div>
             </div>
-            <div class="modal-footer text-center">
+            <div class="modal-footer d-flex justify-content-around">
               <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
               <button id="rentButton" type="button" class="btn btn-orange">Siguran sam!</button>
             </div>
@@ -194,6 +210,7 @@
           <p>- <span id="karticaPlacanjeDetalji-insert"></span></p>
         </div>
       </div>
+      <button onclick="topFunction()" id="myBtn" title="Odi gore">↑</button>
     <script src="assets\plugins\jquery\jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="assets/plugins/bootstrap-4.6.1-dist/js/bootstrap.bundle.min.js"></script>
@@ -202,7 +219,6 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="js\firebase_config.js"></script>
-    <script src="js\redirect.js"></script>
     <script src="js\index.js"></script>>
 </body>
 </html>

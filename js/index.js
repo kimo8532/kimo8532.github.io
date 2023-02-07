@@ -11,9 +11,35 @@ auth.onAuthStateChanged((user) => {
                 let podaciKorisnik = document.getElementById("podaciKorisnik");
                 podaciKorisnik.innerHTML=`Dobrodosli ${User.firstName} ${User.lastName}`;
                 profilePictureHolder.setAttribute("src", User.profilePicture);
+                let rentHistory = document.getElementById("rentHistory")
+                baza.ref("rented").on('value', function(oOdgovorPosluzitelja)
+                {
+                  let counter = 1;
+                  oOdgovorPosluzitelja.forEach(function (oRentSnapshot)
+                  {
+                      Object.values(oRentSnapshot.val()).forEach(function(val){
+                      if(val.email == user.email)
+                      {
+                        console.log("doso tu")
+                        rentHistory.innerHTML += `<tr><th scope="row" class="white-text">${counter}</th><td class="white-text">${val.datumRentanja}
+                        </td><td class="white-text">${val.datumPrestankaRentanja}
+                        </td><td class="white-text">${val.rentaniAutoIme}
+                        </td><td class="white-text"><button type="button" id="racun${counter}"class="btn btn-success" onclick="fillInvoiceDetail('${val.rentaniAuto}')">Preuzmi racun</button>
+                        </td></tr>`
+                        if(val.brojRacuna == undefined)
+                        {
+                          document.getElementById(`racun${counter}`).setAttribute("disabled",'')
+                        }
+                        counter++;
+                        
+                      }
+                    })
+                  })
+                })
               }
           })
       })
+      ("td:last-child").setAttribute("disabled", "true")
       baza.ref("administrator").on('value', function(oOdgovorPosluzitelja)
       {
           var isAdmin = false;
@@ -45,6 +71,8 @@ function signOut() {
 }
 function monthDiff(d1, d2) {
   var months;
+  console.log(d1.getFullYear())
+  console.log(d2.getFullYear())
   months = (d2.getFullYear() - d1.getFullYear()) * 12;
   months -= d1.getMonth();
   months += d2.getMonth();
@@ -149,7 +177,7 @@ else
     status = "danger";
 }
  rdb += 1;
- $("#carHold .row:last").append(`<div class="col-4"><div id="car-card" class="card">
+ $("#carHold .row:last").append(`<div class="col-lg-4 "><div id="car-card" class="card">
  <img id="${sCarKey}"class="card-img-top" style="height:300px; width: 100%;">
  <div class="card-body">
    <h5 class="card-title text-center">${oCar.Marka.split(".").join(" ")} ${oCar.Model}</h5>
@@ -165,15 +193,7 @@ else
 var uploadTask = storage.ref().child(`Cars/${sCarKey}/${oCar.Marka.split(" ").join(".")}${oCar.Model}`);
 
 uploadTask.getDownloadURL().then((url) => {
-  var xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = (event) => {
-      var blob = xhr.response;
-    };
-    xhr.open('GET', url);
-    xhr.send();
-  $(`#${sCarKey}`).attr("src", `${url}`)    
-  $("body").append(`<script src="${url}"></script>`)
+  $(`#${sCarKey}`).attr("src", `${url}`);
 })
 });
 });
@@ -188,35 +208,29 @@ function fillDetails(sCarKey)
         let validationServer08Modal = document.getElementById("validationServer08Modal");
         let MotorModal = document.getElementById("MotorModal");
         let MjenjacModal = document.getElementById("MjenjacModal");
+        let CijenaModal = document.getElementById("CijenaModal")
         let SaveModal = document.getElementById("RentajModal");
-        var regTime = new Date(snapshot.IstekRegistracije);
+        var regTime = new Date(oAutomobil.IstekRegistracije);
         var currTime = new Date()
         if(monthDiff(currTime, regTime) <= 0)
         {
           SaveModal.innerText = "Auto trenutno nije registriran"
-          SaveModal.classList.add("disabled");
+          SaveModal.setAttribute("disabled",'');
         }
         else
         {
           SaveModal.setAttribute("onclick",`PripremaRentaj('${sCarKey}')`);
         }
-        ModalLabel = `${oAutomobil.Marka.split(".").join(" ")} ${oAutomobil.Model}`;
+        ModalLabel.innerHTML = `${oAutomobil.Marka.split(".").join(" ")} ${oAutomobil.Model}`;
         validationServer06Modal.innerText = oAutomobil.GodinaModela;
         validationServer07Modal.innerText = oAutomobil.GodinaProizvodnja;
         validationServer08Modal.innerText = oAutomobil.SnagaMotora;
         MotorModal.innerText = oAutomobil.TipMotora;
-        MjenjacModal.innerText = oAutomobil.TipMjenjaca;
+        MjenjacModal.innerText = oAutomobil.TipMjenjaca;  
+        CijenaModal.innerText = `${parseInt(oAutomobil.Cijena)} €`;
         var uploadTask = storage.ref().child(`Cars/${sCarKey}/${oAutomobil.Marka.split(" ").join(".")}${oAutomobil.Model}`);
         uploadTask.getDownloadURL().then((url) => {
-            var xhr = new XMLHttpRequest();
-            xhr.responseType = 'blob';
-            xhr.onload = (event) => {
-            var blob = xhr.response;
-            };
-            xhr.open('GET', url);
-            xhr.send();
             $(`#carPicture`).attr("src", `${url}`);
-            $("body").append(`<script src="${url}"></script>`);
         })
         document.getElementById("datumRentanja").value = "";
         document.getElementById("datumPrestankaRentanja").value = "";
@@ -290,7 +304,7 @@ function PripremaRentaj(sCarKey)
   })
 };
 // Landscape export, 2×4 inches
-const doc = new jsPDF({
+/*const doc = new jsPDF({
   orientation: "landscape",
   unit: "in",
   format: [4, 2]
@@ -298,6 +312,7 @@ const doc = new jsPDF({
 
 doc.text("Hello world!", 1, 1);
 doc.save("two-by-four.pdf");
+*/
 function Rentaj(sCarKey)
 {
   if(document.getElementById("datumRentanja").value != "" && document.getElementById("datumPrestankaRentanja").value != "")
@@ -311,7 +326,9 @@ function Rentaj(sCarKey)
         'datumRentanja' : document.getElementById("datumRentanja").value,
         'datumPrestankaRentanja' : document.getElementById("datumPrestankaRentanja").value,
         'email' : user.email,
-        'rentaniAuto' : sCarKey
+        'rentaniAuto' : sCarKey,
+        'prihvaceno' : false,
+        'rentaniAutoIme' : document.getElementById("ModalLabel").innerText
       }
     var oZapis = {};
     oZapis[noviRent] = oRentaniAuto;
@@ -323,6 +340,7 @@ function Rentaj(sCarKey)
 
 }
 }
+
 function IsRented(sCarKey)
 {
 var ref = baza.ref("rented/" + sCarKey);
@@ -362,10 +380,7 @@ document.addEventListener('input', function (event) {
 
 	if (event.target.id !== 'Make') return;
     $("#Model").empty();
-    if (event.target.value == 'default')
-    {
-        $("#Model").append("<option value='default' selected>---Odaberite model!---</option>");
-    }
+    $("#Model").append("<option value='default' selected>---Odaberite model!---</option>");
     oDbcarFill.on('value', function (oOdgovorPosluzitelja)
     {
         oOdgovorPosluzitelja.forEach(function (oCarFillSnapshot)
@@ -393,7 +408,7 @@ filterForm.addEventListener("click", function(e)
 {
     $("#carHold").empty();
     var rdb = 1;
-  console.log(oOdgovorPosluzitelja)
+  
 oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
  {
   var oCar = oCarSnapshot.val();
@@ -405,11 +420,12 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
  let sModel = document.getElementById("Model").value;
  let sMjenjac = document.getElementById("Mjenjac").value;
  let sMotor = document.getElementById("Motor").value;
-
-  if (sMake && sMake !== 'default' && oCar.Marka !== sMake) {
+ console.log(oCar.Marka)
+ console.log(sMake);
+  if (sMake && sMake !== 'default' && oCar.Marka.split(".").join("") !== sMake) {
     return;
   }
-  if (sModel && sModel !== 'default' && oCar.Model !== sModel) {
+  if (sModel && sModel !== 'default' && oCar.Model.split(".").join("") !== sModel) {
     return;
   }
   if (sMjenjac && sMjenjac !== 'default' && oCar.Marka !== sMjenjac) {
@@ -434,49 +450,39 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
     $("#carHold").append(`<div class='row'></div> <br>`);
     
  }
+ var regTime = new Date(oCar.IstekRegistracije);
+ var currTime = new Date()
+ var status;
+ var message;
+ console.log(monthDiff(regTime, currTime))
+ if(monthDiff(currTime, regTime) > 0)
+ {
+    message="Automobil je dostupan!"
+    status = "success";
+ }
+else
+{
+    message="Registracija je istekla!"
+    status = "danger";
+}
  rdb += 1;
- $("#carHold .row:last").append(`<div class="col-4"><div class="card"">
+ $("#carHold .row:last").append(`<div class="col-lg-4 "><div id="car-card" class="card">
  <img id="${sCarKey}"class="card-img-top" style="height:300px; width: 100%;">
  <div class="card-body">
-   <h5 class="card-title">${oCar.Marka} ${oCar.Model}</h5>
-   <table class="table">
-   <tr>
-   <th class="thead-dark">Godina proizvodnje:</th>
-   <td>${oCar.GodinaProizvodnja}</td>
-   </tr>
-   <tr>
-   <th class="thead-dark">Godina modela:</th>
-   <td>${oCar.GodinaModela}</td>
-   </tr>
-   <tr>
-   <th class="thead-dark">Snaga Motora:</th>
-   <td>${oCar.SnagaMotora}</td>
-   </tr>
-   <tr>
-   <th class="thead-dark">Tip Motora:</th>
-   <td style="text:break-spaces; !important">${oCar.TipMotora}</td>
-   </tr>
-   <tr>
-   <th class="thead-dark">Tip Mjenjaca:</th>
-   <td>${oCar.TipMjenjaca}</td>
-   </tr>
-   </table>
-   <a href="#" class="btn btn-primary" onclick="RentCheck(${sCarKey})">Rentaj!</a>
+   <h5 class="card-title text-center">${oCar.Marka.split(".").join(" ")} ${oCar.Model}</h5>
+   <div class="text-center">
+   <div class="alert alert-${status}" role="alert">
+    ${message}
+    </div>
+   <a href="#" class="btn btn-orange mr-3" data-toggle="modal" data-target="#mainModal" onclick="fillDetails('${sCarKey}')">Provjeri detalje!</a>
+   </div>
  </div>
 </div>
 </div>`)
 var uploadTask = storage.ref().child(`Cars/${sCarKey}/${oCar.Marka}${oCar.Model}`);
 
 uploadTask.getDownloadURL().then((url) => {
-  var xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = (event) => {
-      var blob = xhr.response;
-    };
-    xhr.open('GET', url);
-    xhr.send();
   $(`#${sCarKey}`).attr("src", `${url}`)    
-  $("body").append(`<script src="${url}"></script>`)
 })
 })})});
 
@@ -522,5 +528,34 @@ function generatePDF() {
       </div>*/
 function fillInvoiceDetail(sCarKey)
 {
+     let dateInsert = document.getElementById("date-insert");
+     let timeInsert = document.getElementById("time-insert");
+     let idInsert = document.getElementById("id-insert");
+     let customerInsert = document.getElementById("customer-insert");
+     let markaInsert = document.getElementById("marka-insert");
+     let modelInsert = document.getElementById("model-insert");
+     let tabliceInsert = document.getElementById("tablice-insert");
+     let startDateInsert = document.getElementById("startDate-insert");
+     let endDateInsert = document.getElementById("endDate-insert");
+     let baznaCijenaInsert = document.getElementById("baznaCijena-insert");
+     let osiguranjeInsert = document.getElementById("osiguranje-insert");
+     let ukupnoInsert = document.getElementById("ukupno-insert");
+     let nacinPlacanjaInsert = document.getElementById("nacinPlacanja-insert");
+     let karticaPlacanjeDetaljiInsert = document.getElementById("karticaPlacanjeDetalji-insert")
 
+}
+let mybutton = document.getElementById("myBtn");
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
 }
