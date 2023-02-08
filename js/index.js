@@ -20,7 +20,7 @@ auth.onAuthStateChanged((user) => {
                       Object.values(oRentSnapshot.val()).forEach(function(val){
                       if(val.email == user.email)
                       {
-                        console.log("doso tu")
+                        //console.log("doso tu")
                         rentHistory.innerHTML += `<tr><th scope="row" class="white-text">${counter}</th><td class="white-text">${val.datumRentanja}
                         </td><td class="white-text">${val.datumPrestankaRentanja}
                         </td><td class="white-text">${val.rentaniAutoIme}
@@ -74,8 +74,8 @@ function signOut() {
 }
 function monthDiff(d1, d2) {
   var months;
-  console.log(d1.getFullYear())
-  console.log(d2.getFullYear())
+  //console.log(d1.getFullYear())
+  //console.log(d2.getFullYear())
   months = (d2.getFullYear() - d1.getFullYear()) * 12;
   months -= d1.getMonth();
   months += d2.getMonth();
@@ -158,7 +158,7 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
  {
  var sCarKey = oCarSnapshot.key;
  var oCar = oCarSnapshot.val();
- console.log(rdb);
+ //console.log(rdb);
  if(rdb == 4 || rdb == 1)
  {
     rdb = 1;
@@ -168,7 +168,7 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
  var currTime = new Date()
  var status;
  var message;
- console.log(monthDiff(regTime, currTime))
+ //console.log(monthDiff(regTime, currTime))
  if(monthDiff(currTime, regTime) > 0)
  {
     message="Automobil je dostupan!"
@@ -240,7 +240,7 @@ function fillDetails(sCarKey)
       }
     else 
     {
-      console.log("No data available");
+      //console.log("No data available");
     }
     }).catch((error) => {
     console.error(error);
@@ -256,14 +256,14 @@ function PripremaRentaj(sCarKey)
   errorMessage.innerHTML = "";
   let curr = new Date()
   let currDate = new Date(curr.getUTCFullYear(), curr.getUTCMonth()+1, curr.getUTCDay()+1);
-  console.log(currDate)
+  //console.log(currDate)
   let selectedDate = new Date(rangeStartValue.value);
   rangeStartValue.addEventListener("input", function()
   {
       if(selectedDate <= currDate)
       {
         rangeStartValue.value="";
-        errorMessage.innerHTML ="nemogu vjerovat da radim ovaj uvjet za pacjente koji se ovog sjete"
+        errorMessage.innerHTML ="Ne mozes rentati u proslosti"
       }
   })
   selectedDate = new Date(rangeEndValue.value);
@@ -272,7 +272,7 @@ function PripremaRentaj(sCarKey)
       if(selectedDate <= currDate)
       {
         rangeEndValue.value="";
-        errorMessage.innerHTML ="nemogu vjerovat da radim ovaj uvjet za pacjente koji se ovog sjete"
+        errorMessage.innerHTML ="Ne mozes rentati u proslosti"
       }
   })
   baza.ref("rented/"+ sCarKey).on('value', function(oOdgovorPosluzitelja)
@@ -390,7 +390,7 @@ document.addEventListener('input', function (event) {
     {
         var carFill = oCarFillSnapshot.val();
         brand = carFill.brand.split(" ").join("");
-        console.log(event.target.value + " "+ brand)
+        //console.log(event.target.value + " "+ brand)
         if(brand == event.target.value)
         {
             for(let i = 0; i < Object.keys(carFill.models).length; i++)
@@ -423,8 +423,8 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
  let sModel = document.getElementById("Model").value;
  let sMjenjac = document.getElementById("Mjenjac").value;
  let sMotor = document.getElementById("Motor").value;
- console.log(oCar.Marka)
- console.log(sMake);
+ //console.log(oCar.Marka)
+ //console.log(sMake);
   if (sMake && sMake !== 'default' && oCar.Marka.split(".").join("") !== sMake) {
     return;
   }
@@ -446,7 +446,7 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
   if (MinStrength && oCar.SnagaMotora < MinStrength) {
     return;
   }
- console.log(rdb);
+ //console.log(rdb);
  if(rdb == 4 || rdb == 1)
  {
     rdb = 1;
@@ -457,7 +457,7 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
  var currTime = new Date()
  var status;
  var message;
- console.log(monthDiff(regTime, currTime))
+ //console.log(monthDiff(regTime, currTime))
  if(monthDiff(currTime, regTime) > 0)
  {
     message="Automobil je dostupan!"

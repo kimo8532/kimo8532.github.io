@@ -67,7 +67,7 @@ document.addEventListener('input', function (event) {
     {
         var carFill = oCarFillSnapshot.val();
         brand = carFill.brand.split(" ").join(".");
-        console.log(event.target.value + " "+ brand)
+        //console.log(event.target.value + " "+ brand)
         if(brand == event.target.value)
         {
             for(let i = 0; i < Object.keys(carFill.models).length; i++)
@@ -78,7 +78,7 @@ document.addEventListener('input', function (event) {
         }
     });
     });
-	//console.log(event.target.value);
+	////console.log(event.target.value);
 
 })
 let file;
@@ -149,7 +149,7 @@ function submitAddCar()
     const storageRef = storage.ref(`Cars/${sKey}/${$("#Make").val()}${$("#Model").val()}`);
     errorDiv.attr("hidden", "true");
     storageRef.put(file).then(function(snapshot) {
-    console.log('File uploaded successfully');
+    //console.log('File uploaded successfully');
     });
     
             var oAuto = {
@@ -189,7 +189,7 @@ function submitAddCar()
      {
      var sCarKey = oCarSnapshot.key;
      var oCar = oCarSnapshot.val();
-     console.log(rdb);
+     //console.log(rdb);
      if(rdb == 4 || rdb == 1)
      {
         rdb = 1;
@@ -199,7 +199,7 @@ function submitAddCar()
      var currTime = new Date()
      var status;
      var message;
-     console.log(monthDiff(regTime, currTime))
+     //console.log(monthDiff(regTime, currTime))
      if(monthDiff(currTime, regTime) > 3)
      {
         message="Automobil je dostupan!"
@@ -359,7 +359,7 @@ document.addEventListener('input', function (event) {
     {
         var carFill = oCarFillSnapshot.val();
         brand = carFill.brand.split(" ").join(".");
-        console.log(event.target.value + " "+ brand)
+        //console.log(event.target.value + " "+ brand)
         if(brand == event.target.value)
         {
             for(let i = 0; i < Object.keys(carFill.models).length; i++)
@@ -385,7 +385,7 @@ document.addEventListener('input', function (event) {
             let MjenjacModal = document.getElementById("MjenjacModal");
             let SaveModal = document.getElementById("modalSaveChanges");
             SaveModal.setAttribute("onclick",`UpdateCar('${sCarKey}')`);
-            console.log(oAutomobil.TipMotora)
+            //console.log(oAutomobil.TipMotora)
             MakeModal.value = oAutomobil.Marka;
             fillModalModel(MakeModal.value);
             ModelModal.value = oAutomobil.Model;
@@ -400,7 +400,7 @@ document.addEventListener('input', function (event) {
 
         } 
         else {
-          console.log("No data available");
+          //console.log("No data available");
         }
       }).catch((error) => {
         console.error(error);
@@ -417,7 +417,7 @@ function fillModalModel(Make)
         {
         var carFill = oCarFillSnapshot.val();
         brand = carFill.brand.split(" ").join(".");
-        console.log(Make);
+        //console.log(Make);
         if(brand == Make)
         {
             for(let i = 0; i < Object.keys(carFill.models).length; i++)
@@ -452,8 +452,8 @@ function fillCreateInvoiceDetail(val)
     {
         oOdgovorPosluzitelja.forEach(function(oRentSnapshot)
         {
-            console.log(value)
-            console.log(oRentSnapshot.val()[value])
+            //console.log(value)
+            //console.log(oRentSnapshot.val()[value])
             if(oRentSnapshot.val()[value])
             {
                 
@@ -461,13 +461,13 @@ function fillCreateInvoiceDetail(val)
                 let overAllPrice = document.getElementById("fullPrice")
                 let datumRentanje = new Date(oRent.datumRentanja.split("-").join(", "));
                 let datumPrestankaRentanje = new Date(oRent.datumPrestankaRentanja.split("-").join(", "))
-                console.log(datumRentanje)
-                console.log(datumPrestankaRentanje)
+                //console.log(datumRentanje)
+                //console.log(datumPrestankaRentanje)
                 anotherValue = oRent;
                 baza.ref('allCarsInStock/' + oRent.rentaniAuto).get().then((snapshot) => {
                     if (snapshot.exists()) 
                     {
-                        console.log("radis li?")
+                        //console.log("radis li?")
                         overAllPrice.innerText = parseInt(`${daysBetween(datumRentanje,datumPrestankaRentanje) * snapshot.val().Cijena}`) +"€"
                     }
                     }
@@ -552,11 +552,11 @@ function createInvoice()
                 }
             })
         })
-        console.log(anotherValue.rentaniAuto)
+        //console.log(anotherValue.rentaniAuto)
         var oAutoRef = baza.ref('allCarsInStock/' + anotherValue.rentaniAuto).get().then((snapshot) => {
             if (snapshot.exists()) 
             {
-                console.log(snapshot.val())
+                //console.log(snapshot.val())
                 marka = snapshot.val().Marka
                 model = snapshot.val().Model
                 tablice = snapshot.val().Registracija
@@ -654,10 +654,10 @@ function fillTableWithUserRentals()
           Object.values(oRentSnapshot.val()).forEach(function(val){
           if(val.email == EmailKorisnikaRent.value)
           {
-            console.log(oRentSnapshot.val())
+            //console.log(oRentSnapshot.val())
             if(val.brojRacuna == undefined)
             {
-                console.log("doso tu")
+                //console.log("doso tu")
                 rentHistory.innerHTML += `<tr><th scope="row" class="white-text">${counter}</th><td class="white-text">${val.datumRentanja}
                 </td><td class="white-text">${val.datumPrestankaRentanja}
                 </td><td class="white-text">${val.rentaniAutoIme}
