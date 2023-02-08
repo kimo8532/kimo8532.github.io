@@ -531,7 +531,7 @@ function generatePDF() {
       </div>*/
   function fillInvoiceDetail(sInvoiceKey)
   {
-
+    document.getElementById("invoice").removeAttribute('hidden');
       baza.ref('invoice/'+ sInvoiceKey).get().then((snapshot) => {
         if(snapshot.exists())
         {
@@ -570,6 +570,7 @@ function generatePDF() {
       }).then(function(e)
       {
           generatePDF()
+          document.getElementById("invoice").setAttribute('hidden','');
       })
   }
 let mybutton = document.getElementById("myBtn");
