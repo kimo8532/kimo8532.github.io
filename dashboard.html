@@ -61,8 +61,31 @@
         </div>
       </form>
     </div>
-    <div id="Rentano" hidden>
+    <div id="Rentano" class="container" hidden>
+      <h1 class="text-center orange-background-text mt-5 mb-5">Pretrazivanje po emailu!</h1>
+      <div class="form-row">
+        <div class="col-md mb-3 d-flex">
+          <label class="orange-background-text" for="EmailKorisnikaRent">Email korisnika: </label>
+          <input type="email" class="form-control form-control-redefined" id="EmailKorisnikaRent" required>
+        </div>
+      </div>
+      <div class="form-row d-flex justify-content-center pb-5">
+        <button type="button" class="btn btn-orange" onclick="fillTableWithUserRentals()">Pretrazi</button>
+      </div>
+      <table class="table table-bordered table-dark">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Datum pocetak rentanja</th>
+            <th scope="col">Datum kraja rentanja</th>
+            <th scope="col">Automobil</th>
+            <th scope="col">Plati</th>
+          </tr>
+        </thead>
+        <tbody id="rentContainer">
 
+        </tbody>
+      </table>
     </div>
     <div id="Unos" class="container" hidden>
         <h1 class="text-center orange-background-text mt-5 mb-5">Unos novog automobila u bazu</h1>
@@ -258,6 +281,60 @@
           <div class="modal-footer">
             <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
             <button id="deleteButton"type="button" class="btn btn-orange">Siguran sam!</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="placanjeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-blue modal-border">
+          <div class="modal-header">
+            <h5 class="modal-title white-text" id="exampleModalLabel">Placanje automobila</h5>
+            <button type="button" class="close btn-white" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="propertyContainer" hidden></div>
+            <form>
+              <h2 class="white-text text-center pb-5">Nacin placanja</h2>
+              <h3 id="fullPrice" class="white-text text-center pb-5"></h3>
+              <div class="form-row d-flex justify-content-center">
+                <div class="form-group form-check col-lg-4">
+                  <label class="white-text" for="creditCard">Placanje kreditnom karticom</label>
+                  <input id="creditCard"type="checkbox">
+                </div>
+                <div class="form-group form-check col-lg-4">
+                </div>
+                <div class="form-group form-check col-lg-4">
+                  <label class="white-text" for="cash">Placanje gotovinom</label>
+                  <input id="cash"type="checkbox">
+                </div>
+              </div>
+            </form>
+            <form id="form-container-creditCard" hidden>
+              <div class="form-group">
+                <label class="white-text"for="cardholderName">Ime na kartici:</label>
+                <input type="text" class="form-control form-control-redefined" id="cardholderName" required>
+              </div>
+              <div class="form-group">
+                <label class="white-text"for="cardNumber">Broj kartice:</label>
+                <input type="text" class="form-control form-control-redefined" id="cardNumber" required>
+              </div>
+              <div class="form-group">
+                <label class="white-text"for="expirationDate">Vrijedi do:</label>
+                <input type="text" class="form-control form-control-redefined" id="expirationDate" required>
+              </div>
+              <div class="form-group">
+                <label class="white-text"for="cvv">CVV:</label>
+                <input type="text" class="form-control form-control-redefined" id="cvv" required>
+              </div>
+              
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-white" data-dismiss="modal">Zatvori</button>
+            <button id="pay" type="button" class="btn btn-success" onclick="createInvoice()">Plati i izdaj racun</button>
           </div>
         </div>
       </div>

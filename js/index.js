@@ -24,11 +24,15 @@ auth.onAuthStateChanged((user) => {
                         rentHistory.innerHTML += `<tr><th scope="row" class="white-text">${counter}</th><td class="white-text">${val.datumRentanja}
                         </td><td class="white-text">${val.datumPrestankaRentanja}
                         </td><td class="white-text">${val.rentaniAutoIme}
-                        </td><td class="white-text"><button type="button" id="racun${counter}"class="btn btn-success" onclick="fillInvoiceDetail('${val.rentaniAuto}')">Preuzmi racun</button>
+                        </td><td class="white-text"><button type="button" id="racun${counter}"class="btn btn-success"">Preuzmi racun</button>
                         </td></tr>`
                         if(val.brojRacuna == undefined)
                         {
                           document.getElementById(`racun${counter}`).setAttribute("disabled",'')
+                        }
+                        else
+                        {
+                          document.getElementById(`racun${counter}`).setAttribute("onclick",`fillInvoiceDetail('${val.brojRacuna}')`);
                         }
                         counter++;
                         
@@ -39,7 +43,6 @@ auth.onAuthStateChanged((user) => {
               }
           })
       })
-      ("td:last-child").setAttribute("disabled", "true")
       baza.ref("administrator").on('value', function(oOdgovorPosluzitelja)
       {
           var isAdmin = false;
@@ -526,24 +529,49 @@ function generatePDF() {
           <p>- <span id="karticaPlacanjeDetalji-insert"></span></p>
         </div>
       </div>*/
-function fillInvoiceDetail(sCarKey)
-{
-     let dateInsert = document.getElementById("date-insert");
-     let timeInsert = document.getElementById("time-insert");
-     let idInsert = document.getElementById("id-insert");
-     let customerInsert = document.getElementById("customer-insert");
-     let markaInsert = document.getElementById("marka-insert");
-     let modelInsert = document.getElementById("model-insert");
-     let tabliceInsert = document.getElementById("tablice-insert");
-     let startDateInsert = document.getElementById("startDate-insert");
-     let endDateInsert = document.getElementById("endDate-insert");
-     let baznaCijenaInsert = document.getElementById("baznaCijena-insert");
-     let osiguranjeInsert = document.getElementById("osiguranje-insert");
-     let ukupnoInsert = document.getElementById("ukupno-insert");
-     let nacinPlacanjaInsert = document.getElementById("nacinPlacanja-insert");
-     let karticaPlacanjeDetaljiInsert = document.getElementById("karticaPlacanjeDetalji-insert")
+  function fillInvoiceDetail(sInvoiceKey)
+  {
 
-}
+      baza.ref('invoice/'+ sInvoiceKey).get().then((snapshot) => {
+        if(snapshot.exists())
+        {
+          let invoice = snapshot.val();
+          let dateInsert = invoice.datumPlacanja;
+          let timeInsert = invoice.vrijeme;
+          let idInsert = invoice.idRacun;
+          let customerInsert = invoice.fullName;
+          let markaInsert = invoice.Marka;
+          let modelInsert = invoice.Model;
+          let tabliceInsert = invoice.tablice;
+          let startDateInsert = invoice.startDate;
+          let endDateInsert = invoice.endDate;
+          let baznaCijenaInsert = invoice.basePrice;
+          let osiguranjeInsert = invoice.Osiguranje;
+          let ukupnoInsert = invoice.Ukupno;
+          let nacinPlacanjaInsert = invoice.nacinPlacanja;
+          let karticaPlacanjeDetaljiInsert = "************" + invoice.cardNumber.substring(11, 4);
+    
+          document.getElementById("date-insert").innerText = dateInsert;
+          document.getElementById("time-insert").innerText = timeInsert;
+          document.getElementById("id-insert").innerText = idInsert;
+          document.getElementById("customer-insert").innerText = customerInsert;
+          document.getElementById("marka-insert").innerText = markaInsert;
+          document.getElementById("model-insert").innerText = modelInsert;
+          document.getElementById("tablice-insert").innerText = tabliceInsert;
+          document.getElementById("startDate-insert").innerText = startDateInsert;
+          document.getElementById("endDate-insert").innerText = endDateInsert;
+          document.getElementById("baznaCijena-insert").innerText = parseInt(baznaCijenaInsert);
+          document.getElementById("osiguranje-insert").innerText = parseInt(osiguranjeInsert);
+          document.getElementById("ukupno-insert").innerText = parseInt(ukupnoInsert);
+          document.getElementById("nacinPlacanja-insert").innerText = nacinPlacanjaInsert;
+          document.getElementById("karticaPlacanjeDetalji-insert").innerText = karticaPlacanjeDetaljiInsert;
+        }
+        
+      }).then(function(e)
+      {
+          generatePDF()
+      })
+  }
 let mybutton = document.getElementById("myBtn");
 window.onscroll = function() {scrollFunction()};
 
