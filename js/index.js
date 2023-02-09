@@ -431,10 +431,10 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
   if (sModel && sModel !== 'default' && oCar.Model.split(".").join("") !== sModel) {
     return;
   }
-  if (sMjenjac && sMjenjac !== 'default' && oCar.Marka !== sMjenjac) {
+  if (sMjenjac && sMjenjac !== 'default' && oCar.TipMjenjaca !== sMjenjac) {
     return;
   }
-  if (sMotor && sMotor !== 'default' && oCar.Model !== sMotor ) {
+  if (sMotor && sMotor !== 'default' && oCar.TipMotora !== sMotor ) {
     return;
   }
   if (StartYear && oCar.GodinaProizvodnja < StartYear) {
