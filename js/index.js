@@ -501,6 +501,7 @@ function generatePDF() {
     // Choose the element that our invoice is rendered in.
     html2pdf().set(opt).from(element).save().then(function(e)
     {
+      document.getElementById("invoice").setAttribute('hidden','');
     });
   }
 /*<div class="modal fade" id="invoice">
