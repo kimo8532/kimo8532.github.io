@@ -627,6 +627,17 @@ function createInvoice()
             var oZapis = {};
             oZapis[sInvoiceKey] = oInvoice;
             baza.ref("invoice").update(oZapis);
+            var oRentRef = baza.ref('rented/' + anotherValue.rentaniAuto +'/'+ value)
+            var oRent = {
+                'datumPrestankaRentanja': anotherValue.datumPrestankaRentanja,
+                'datumRentanja': anotherValue.datumRentanja,
+                'email': anotherValue.email,
+                'prihvaceno' : true,
+                'rentaniAuto': anotherValue.rentaniAuto,
+                'rentaniAutoIme' : anotherValue.rentaniAutoIme,
+                'brojRacuna' : sInvoiceKey
+            }
+            oRentRef.update(oRent);
         }
             }
             }

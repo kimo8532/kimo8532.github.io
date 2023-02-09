@@ -24,7 +24,7 @@ auth.onAuthStateChanged((user) => {
                         rentHistory.innerHTML += `<tr><th scope="row" class="white-text">${counter}</th><td class="white-text">${val.datumRentanja}
                         </td><td class="white-text">${val.datumPrestankaRentanja}
                         </td><td class="white-text">${val.rentaniAutoIme}
-                        </td><td class="white-text"><button type="button" id="racun${counter}"class="btn btn-success"">Preuzmi racun</button>
+                        </td><td class="white-text"><button type="button" id="racun${counter}"class="btn btn-success">Preuzmi racun</button>
                         </td></tr>`
                         if(val.brojRacuna == undefined)
                         {

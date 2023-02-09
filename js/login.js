@@ -40,30 +40,31 @@ function Register()
     var confirmPassword = document.getElementById("confirm-password").value;
     var firstName = document.getElementById("first-name").value;
     var lastName = document.getElementById("last-name").value;
-    console.log("doslo do tud!")
-    if (!email || !password || !confirmPassword || !firstName || !lastName) {
+    var profilePicture = document.getElementById("profile-picture").files[0];
+    //console.log("doslo do tud!")
+    if (!email || !password || !confirmPassword || !firstName || !lastName || !profilePicture) {
         errorMessage.innerHTML = "Trebate ispuniti sva polja!";
-        console.log("eror 1")
+        //console.log("eror 1")
     } else if (password !== confirmPassword) {
         errorMessage.innerHTML = "Lozinke nisu iste!";
-        console.log("eror 2")
+        //console.log("eror 2")
     } else {
   firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(function(user) {
-        console.log("ulazak u aut dio")
+        //console.log("ulazak u aut dio")
         var userId = user.user.uid;
         var userRef = firebase.database().ref("users/" + userId);
-        var profilePicture = document.getElementById("profile-picture").files[0];
+        
         var storageRef = firebase.storage().ref("users/" + userId + "/" + profilePicture.name);
         var uploadTask = storageRef.put(profilePicture);
   
         uploadTask.on("state_changed", function(snapshot) {
-          console.log("slika se uploda")
+          //console.log("slika se uploda")
         }, function(error) {
-          console.log("uplod fails")
+          //console.log("uplod fails")
         }, function() {
           // handle successful upload
-          console.log("uspjeh!")
+          //console.log("uspjeh!")
           uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
             userRef.set({
               email: email,
