@@ -569,8 +569,10 @@ function generatePDF() {
         
       }).then(function(e)
       {
-          generatePDF()
-          document.getElementById("invoice").setAttribute('hidden','');
+          generatePDF().then(function(ef)
+          {
+            document.getElementById("invoice").setAttribute('hidden','');
+          })
       })
   }
 let mybutton = document.getElementById("myBtn");
