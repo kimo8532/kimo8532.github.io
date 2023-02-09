@@ -499,7 +499,10 @@ function generatePDF() {
       jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
     // Choose the element that our invoice is rendered in.
-    html2pdf().set(opt).from(element).save();
+    html2pdf().set(opt).from(element).save().then(function(e)
+    {
+      document.getElementById("invoice").setAttribute('hidden','');
+    });
   }
 /*<div class="modal fade" id="invoice">
         <div>
@@ -569,10 +572,7 @@ function generatePDF() {
         
       }).then(function(e)
       {
-          generatePDF().then(function(ef)
-          {
-            document.getElementById("invoice").setAttribute('hidden','');
-          })
+          generatePDF()
       })
   }
 let mybutton = document.getElementById("myBtn");
