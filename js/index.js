@@ -24,7 +24,7 @@ auth.onAuthStateChanged((user) => {
                         rentHistory.innerHTML += `<tr><th scope="row" class="white-text">${counter}</th><td class="white-text">${val.datumRentanja}
                         </td><td class="white-text">${val.datumPrestankaRentanja}
                         </td><td class="white-text">${val.rentaniAutoIme}
-                        </td><td class="white-text"><button type="button" id="racun${counter}"class="btn btn-success">Preuzmi racun</button>
+                        </td><td class="white-text"><button type="button" id="racun${counter}"class="btn btn-success"">Preuzmi racun</button>
                         </td></tr>`
                         if(val.brojRacuna == undefined)
                         {
@@ -219,9 +219,12 @@ function fillDetails(sCarKey)
         {
           SaveModal.innerText = "Auto trenutno nije registriran"
           SaveModal.setAttribute("disabled",'');
+          SaveModal.removeAttribute("onclick");
         }
         else
         {
+          SaveModal.innerText = "Rentaj!"
+          SaveModal.removeAttribute("disabled");
           SaveModal.setAttribute("onclick",`PripremaRentaj('${sCarKey}')`);
         }
         ModalLabel.innerHTML = `${oAutomobil.Marka.split(".").join(" ")} ${oAutomobil.Model}`;
@@ -431,10 +434,10 @@ oOdgovorPosluzitelja.forEach(function (oCarSnapshot)
   if (sModel && sModel !== 'default' && oCar.Model.split(".").join("") !== sModel) {
     return;
   }
-  if (sMjenjac && sMjenjac !== 'default' && oCar.TipMjenjaca !== sMjenjac) {
+  if (sMjenjac && sMjenjac !== 'default' && oCar.Marka !== sMjenjac) {
     return;
   }
-  if (sMotor && sMotor !== 'default' && oCar.TipMotora !== sMotor ) {
+  if (sMotor && sMotor !== 'default' && oCar.Model !== sMotor ) {
     return;
   }
   if (StartYear && oCar.GodinaProizvodnja < StartYear) {
@@ -499,10 +502,7 @@ function generatePDF() {
       jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
     };
     // Choose the element that our invoice is rendered in.
-    html2pdf().set(opt).from(element).save().then(function(e)
-    {
-      document.getElementById("invoice").setAttribute('hidden','');
-    });
+    html2pdf().set(opt).from(element).save();
   }
 /*<div class="modal fade" id="invoice">
         <div>
@@ -573,6 +573,7 @@ function generatePDF() {
       }).then(function(e)
       {
           generatePDF()
+          document.getElementById("invoice").setAttribute('hidden','');
       })
   }
 let mybutton = document.getElementById("myBtn");

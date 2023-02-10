@@ -441,7 +441,7 @@ function daysBetween(date1, date2) {
     var difference = date2 - date1;
     var days = Math.round(difference / (1000 * 60 * 60 * 24));
 
-    return days;
+    return days + 1;
   }
 let value;
 let anotherValue;
@@ -627,17 +627,6 @@ function createInvoice()
             var oZapis = {};
             oZapis[sInvoiceKey] = oInvoice;
             baza.ref("invoice").update(oZapis);
-            var oRentRef = baza.ref('rented/' + anotherValue.rentaniAuto +'/'+ value)
-            var oRent = {
-                'datumPrestankaRentanja': anotherValue.datumPrestankaRentanja,
-                'datumRentanja': anotherValue.datumRentanja,
-                'email': anotherValue.email,
-                'prihvaceno' : true,
-                'rentaniAuto': anotherValue.rentaniAuto,
-                'rentaniAutoIme' : anotherValue.rentaniAutoIme,
-                'brojRacuna' : sInvoiceKey
-            }
-            oRentRef.update(oRent);
         }
             }
             }
